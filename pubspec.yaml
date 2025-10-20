@@ -23,3 +23,7 @@ flutter:
   assets:
     - assets/ubuntu_logo.svg
     - assets/arch_logo.svg
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/Inter-Regular.ttf
