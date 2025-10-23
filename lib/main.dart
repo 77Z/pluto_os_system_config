@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluto_os_system_config/devices_page.dart';
+import 'package:pluto_os_system_config/drivers_page.dart';
 import 'package:pluto_os_system_config/linux_environment_page.dart';
 import 'package:pluto_os_system_config/system_updates_page.dart';
 import 'package:yaru/yaru.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:convert';
 import 'dart:io';
 
-class FirmwareBundle {
+/* class FirmwareBundle {
   final String name;
   final String package;
   final String description;
@@ -25,7 +26,7 @@ class FirmwareBundle {
       description: json['description'] as String,
     );
   }
-}
+} */
 
 Future<void> main() async {
   await YaruWindowTitleBar.ensureInitialized();
@@ -117,7 +118,7 @@ class _Home extends StatelessWidget {
   }
 }
 
-class DriversPage extends StatefulWidget {
+/* class DriversPage extends StatefulWidget {
   const DriversPage({super.key});
 
   @override
@@ -242,4 +243,4 @@ class _DriversPageState extends State<DriversPage> {
       ),
     );
   }
-}
+} */
