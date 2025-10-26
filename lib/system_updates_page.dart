@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:pluto_os_system_config/main.dart';
-import 'package:http/http.dart' as http;
 import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:yaru/yaru.dart';
 
 class SystemUpdatesPage extends StatefulWidget {
   const SystemUpdatesPage({super.key});
@@ -152,6 +153,27 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
                   child: const Text("Update Now"),
                 ),
             ],
+          ),
+          const Text("PlutoOS Update Channel", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+          YaruRadioButton<String>(
+            value: 'stable',
+            groupValue: 'arch', // You'll want to make this stateful
+            // onChanged: (value) { },
+            onChanged: null,
+            title: Text('Stable (Recommended)'),
+            subtitle: Text(
+              'Fast updates and a guarenteed stable experience',
+            ),
+          ),
+          YaruRadioButton<String>(
+            value: 'beta',
+            groupValue: 'arch', // You'll want to make this stateful
+            // onChanged: (value) { },
+            onChanged: null,
+            title: Text('Beta'),
+            subtitle: Text(
+              'Access to OS releases earlier and get the newer features faster at the expense of stability',
+            ),
           ),
         ],
       ),

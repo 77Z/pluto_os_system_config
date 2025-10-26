@@ -74,7 +74,7 @@ class _Home extends StatelessWidget {
     return Scaffold(
       appBar: YaruWindowTitleBar(),
       body: YaruMasterDetailPage(
-        length: 4,
+        length: 6,
         tileBuilder: (context, index, selected, availableWidth) {
           if (index == 0) {
             return const YaruMasterTile(
@@ -96,6 +96,16 @@ class _Home extends StatelessWidget {
               title: Text("Devices"),
               leading: Icon(YaruIcons.computer_filled),
             );
+          } else if (index == 4) {
+            return const YaruMasterTile(
+              title: Text("Framework Exclusive"),
+              leading: Icon(YaruIcons.computer_legacy),
+            );
+          } else if (index == 5) {
+            return const YaruMasterTile(
+              title: Text("System Storage"),
+              leading: Icon(YaruIcons.drive_harddisk_broken),
+            );
           }
 
           throw Exception("Index misalligned?");
@@ -109,6 +119,10 @@ class _Home extends StatelessWidget {
             return DriversPage();
           } else if (index == 3) {
             return DevicesPage();
+          } else if (index == 4) {
+            return Center(child: const Text("Ambient light sensor, etc. detect mobo manufactuer"),);
+          } else if (index == 5) {
+            return Center(child: const Text("PlutoOS makeup, user files, and swap"),);
           }
 
           return Center(child: Text("Failed to load page"));
