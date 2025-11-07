@@ -1,3 +1,3 @@
-# pluto_os_system_config
+# PlutoOS System Configuration
 
-A new Flutter project.
+Change PlutoOS specific settings and update your computer easily.

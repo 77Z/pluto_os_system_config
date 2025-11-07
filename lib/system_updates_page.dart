@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:pluto_os_system_config/data/models/latest_version_info.dart';
+import 'package:pluto_os_system_config/data/services/latest_version_service.dart';
 import 'package:yaru/yaru.dart';
 
 class SystemUpdatesPage extends StatefulWidget {
@@ -12,8 +13,8 @@ class SystemUpdatesPage extends StatefulWidget {
 }
 
 class SystemUpdatesPageState extends State<SystemUpdatesPage> {
-  String latestVersion = "UNKNOWN";
-  String yourPlutoVersion = "UNKNOWN";
+  LatestVersionInfo? latestVersionInfo = null;
+  String? yourPlutoVersion = null;
 
   @override
   void initState() {
@@ -24,15 +25,8 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
   }
 
   Future<void> getLatestPlutoOSVersion() async {
-    try {
-      var response = await http.get(
-        Uri.parse("https://pluto-freeze.77z.dev/api/v1/latestVersion"),
-      );
-
-      setState(() {
-        latestVersion = response.body;
-      });
-    } catch (e) {}
+    final latestVersionService = LatestVersionService();
+    latestVersionInfo = await latestVersionService.getLatestVersionInfo();
   }
 
   Future<void> getYourPlutoOSVersion() async {
@@ -114,10 +108,10 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
             children: [
               Text("Latest Pluto Version"),
 
-              if (latestVersion == "UNKNOWN")
+              if (latestVersionInfo == null)
                 const CircularProgressIndicator()
               else
-                Text(latestVersion),
+                Text(latestVersionInfo!.stable.latestVersion),
             ],
           ),
           Row(
@@ -126,10 +120,10 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
             spacing: 10,
             children: [
               Text("Installed Pluto Version"),
-              if (yourPlutoVersion == "UNKNOWN")
+              if (yourPlutoVersion == null)
                 const CircularProgressIndicator()
               else
-                Text(yourPlutoVersion),
+                Text(yourPlutoVersion!),
             ],
           ),
           Row(
@@ -141,13 +135,13 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
                 onPressed: () => {
                   getLatestPlutoOSVersion(),
                   setState(() {
-                    latestVersion = "UNKNOWN";
+                    latestVersionInfo = null;
                   })
                 }
               ),
-              if (latestVersion != "UNKNOWN" &&
-                  yourPlutoVersion != "UNKNOWN" &&
-                  compareVersions(yourPlutoVersion, latestVersion))
+              if (latestVersionInfo != null &&
+                  yourPlutoVersion != null &&
+                  compareVersions(yourPlutoVersion!, latestVersionInfo!.stable.latestVersion))
                 ElevatedButton(
                   onPressed: () => {},
                   child: const Text("Update Now"),
@@ -157,8 +151,8 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
           const Text("PlutoOS Update Channel", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
           YaruRadioButton<String>(
             value: 'stable',
-            groupValue: 'arch', // You'll want to make this stateful
-            // onChanged: (value) { },
+            groupValue: 'arch',
+            // onChanged: (value) { },!= "UNKNOWN"
             onChanged: null,
             title: Text('Stable (Recommended)'),
             subtitle: Text(
@@ -167,7 +161,7 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
           ),
           YaruRadioButton<String>(
             value: 'beta',
-            groupValue: 'arch', // You'll want to make this stateful
+            groupValue: 'arch',
             // onChanged: (value) { },
             onChanged: null,
             title: Text('Beta'),
