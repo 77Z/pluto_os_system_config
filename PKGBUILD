@@ -17,10 +17,9 @@ build() {
 }
 
 package() {
-	# install -dm755 "$pkgdir/usr/share/$pkgname"
 	install -dm755 "$pkgdir/pluto/system_config"
-	cp -r build/linux/x64/release/bundle/* "$pkgdir/pluto/system_config"
+	cp -r $srcdir/../build/linux/x64/release/bundle/* "$pkgdir/pluto/system_config"
 
-	install -Dm644 dev._77z.pluto.system_config.desktop "$pkgdir/usr/share/applications/dev._77z.pluto.system_config.desktop"
-	install -Dm644 PlutoSystemConfig.png "$pkgdir/usr/share/pixmaps/PlutoSystemConfig.png"
+	install -Dm644 $srcdir/../dev._77z.pluto.system_config.desktop "$pkgdir/usr/share/applications/dev._77z.pluto.system_config.desktop"
+	install -Dm644 $srcdir/../PlutoSystemConfig.png "$pkgdir/usr/share/pixmaps/PlutoSystemConfig.png"
 }
