@@ -42,6 +42,8 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
     });
   }
 
+  // Could totally be centralized in a dart library or something.
+  // pluto_update_manager also uses a similar function to this
   bool compareVersions(String currentVer, String compareTo) {
     final currentParts = currentVer.split("-");
     final compareToParts = compareTo.split("-");
@@ -84,7 +86,7 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
               'PlutoOS generally releases new major updates once a month to ensure that you have the latest and greatest software.',
             ),
           ),
-          Row(
+          /* Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 10,
@@ -100,7 +102,7 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
                 ],
               ),
             ],
-          ),
+          ), */
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
