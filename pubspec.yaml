@@ -12,6 +12,8 @@ dependencies:
   handy_window: ^0.4.0
   yaru: ^8.3.0
   flutter_svg: ^2.0.10+1
+  plutoos_system_library:
+    path: /code/PlutoDevelopment/PlutoOS-Monorepo/plutoos_system_library/
 
 dev_dependencies:
   flutter_test:
