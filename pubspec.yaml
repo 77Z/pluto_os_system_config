@@ -10,7 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   handy_window: ^0.4.0
-  yaru: ^8.3.0
+  # yaru: ^8.3.0
+  yaru:
+    path: /code/PlutoDevelopment/PlutoOS-Monorepo/pluto_black_theme/
   flutter_svg: ^2.0.10+1
   plutoos_system_library:
     path: /code/PlutoDevelopment/PlutoOS-Monorepo/plutoos_system_library/

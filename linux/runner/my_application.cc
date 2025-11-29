@@ -66,12 +66,13 @@ static void my_application_activate(GApplication* application) {
   fl_view_set_background_color(view, &background_color);
   gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(view));
 
+  fl_register_plugins(FL_PLUGIN_REGISTRY(view));
+
   // Show the window when Flutter renders.
   // Requires the view to be realized so we can start rendering.
   g_signal_connect_swapped(view, "first-frame", G_CALLBACK(first_frame_cb), self);
   gtk_widget_realize(GTK_WIDGET(view));
 
-  fl_register_plugins(FL_PLUGIN_REGISTRY(view));
 
   gtk_widget_show(GTK_WIDGET(view));
   gtk_widget_show(GTK_WIDGET(window));

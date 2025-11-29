@@ -11,13 +11,13 @@ class PciDevice {
   final String klass;
   final String vendor;
   final String device;
-  final String svendor;
-  final String sdevice;
+  final String? svendor;
+  final String? sdevice;
   final String progif;
   final int progifInt;
   final String? driver;
   final String? module;
-  final String iommugroup;
+  final String? iommugroup;
 
   PciDevice({
     required this.slot,
