@@ -13,8 +13,8 @@ class SystemUpdatesPage extends StatefulWidget {
 }
 
 class SystemUpdatesPageState extends State<SystemUpdatesPage> {
-  LatestVersionInfo? latestVersionInfo = null;
-  String? yourPlutoVersion = null;
+  LatestVersionInfo? latestVersionInfo;
+  String? yourPlutoVersion;
 
   @override
   void initState() {
@@ -79,12 +79,30 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
       child: Column(
         spacing: 15,
         children: [
+
+
+          if (latestVersionInfo != null && yourPlutoVersion != null) ...[
+            if (compareVersions(yourPlutoVersion!, latestVersionInfo!.stable.latestVersion)) ...[
+              const Icon(YaruIcons.warning_filled, color: YaruColors.adwaitaRed, size: 60),
+              const Text("System Update Available", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: YaruColors.adwaitaRed),),
+            ] else ...[
+              const Icon(YaruIcons.checkmark, color: YaruColors.adwaitaGreen, size: 60),
+              const Text("System is Up to Date", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: YaruColors.adwaitaGreen),),
+            ],
+          ] else ...[
+            const Text("Checking for Updates...", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+            const YaruLinearProgressIndicator(strokeWidth: 5)
+          ],
+
+
           Center(
             child: Text(
               'PlutoOS generally releases new major updates once a month to ensure that you have the latest and greatest software.',
             ),
           ),
-          Row(
+
+
+          /* Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 10,
@@ -100,37 +118,48 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
                 ],
               ),
             ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 10,
-            children: [
-              Text("Latest Pluto Version"),
+          ), */
 
-              if (latestVersionInfo == null)
-                const CircularProgressIndicator()
-              else
-                Text(latestVersionInfo!.stable.latestVersion),
-            ],
-          ),
+
           Row(
+            spacing: 100,
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 10,
             children: [
-              Text("Installed Pluto Version"),
-              if (yourPlutoVersion == null)
-                const CircularProgressIndicator()
-              else
-                Text(yourPlutoVersion!),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  Text("Latest Pluto Version"),
+              
+                  if (latestVersionInfo == null)
+                    const CircularProgressIndicator()
+                  else
+                    Text(latestVersionInfo!.stable.latestVersion),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  Text("Your Pluto Version"),
+                  if (yourPlutoVersion == null)
+                    const CircularProgressIndicator()
+                  else
+                    Text(yourPlutoVersion!),
+                ],
+              ),
             ],
           ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             spacing: 10,
             children: [
-              TextButton(
+              // Button should'nt be needed, we know if it's up to date when 
+              // this page loads.
+              /* TextButton(
                 child: const Text("Check For Updates"),
                 onPressed: () => {
                   getLatestPlutoOSVersion(),
@@ -138,17 +167,24 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
                     latestVersionInfo = null;
                   })
                 }
-              ),
+              ), */
               if (latestVersionInfo != null &&
                   yourPlutoVersion != null &&
                   compareVersions(yourPlutoVersion!, latestVersionInfo!.stable.latestVersion))
-                ElevatedButton(
-                  onPressed: () => {},
-                  child: const Text("Update Now"),
-                ),
+                Center(child:
+                  ElevatedButton(
+                    onPressed: () => {},
+                    child: const Text("Update Now"),
+                  ),
+                )
             ],
           ),
-          const Text("PlutoOS Update Channel", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+
+
+
+
+
+          /* const Text("PlutoOS Update Channel", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
           YaruRadioButton<String>(
             value: 'stable',
             groupValue: 'arch',
@@ -168,7 +204,9 @@ class SystemUpdatesPageState extends State<SystemUpdatesPage> {
             subtitle: Text(
               'Access to OS releases earlier and get the newer features faster at the expense of stability',
             ),
-          ),
+          ), */
+
+
         ],
       ),
     );
